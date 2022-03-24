@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ClockPage extends StatefulWidget {
@@ -6,8 +7,15 @@ class ClockPage extends StatefulWidget {
 }
 
 class _ClockPageState extends State<ClockPage> {
+
+  Map clockData = {};
+
   @override
   Widget build(BuildContext context) {
+
+    clockData = ModalRoute.of(context)!.settings.arguments as Map;
+
+
     return Scaffold(
         body: SafeArea(
       child: Column(
@@ -30,7 +38,7 @@ class _ClockPageState extends State<ClockPage> {
                     children: [Icon(Icons.agriculture), Text("Seoul")],
                   ),
                   Text(
-                    "6:57 PM",
+                    clockData['time'],
                     style: TextStyle(fontSize: 50),
                   )
                 ],
