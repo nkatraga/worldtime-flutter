@@ -21,7 +21,6 @@ class LocalTime {
       localTimeStr = DateFormat.jm().format(datetimeThere);
     }
     catch (e) {
-      print('Caught error: $e');
       localTimeStr = "Couldn't get time from api";
 
     }

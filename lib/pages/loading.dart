@@ -12,9 +12,10 @@ class _LoadingState extends State<Loading> {
   void setupWorldTime() async {
     LocalTime instance = LocalTime(url: 'Europe/London');
     await instance.getTime();
-    setState(() {
-      textShowing = instance.localTimeStr;
-    });
+    Navigator.pushNamed(context, '/clock');
+    // setState(() {
+    //   textShowing = instance.localTimeStr;
+    // });
   }
 
   @override
