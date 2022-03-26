@@ -9,6 +9,7 @@ class ClockPage extends StatefulWidget {
 class _ClockPageState extends State<ClockPage> {
 
   Map clockData = {};
+  final flagImagesLocation = 'assets/images/';
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +48,9 @@ class _ClockPageState extends State<ClockPage> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(Icons.agriculture),
+                        CircleAvatar(
+                          backgroundImage: AssetImage(flagImagesLocation+clockData['flagImage']),
+                        ),
                         Text(clockData['location'],style: const TextStyle(
                           fontSize: 30,
                           fontWeight: FontWeight.bold,
