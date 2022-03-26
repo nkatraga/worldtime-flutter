@@ -22,6 +22,7 @@ class LocationCard extends StatelessWidget {
             CircleAvatar(
               backgroundImage: AssetImage(flagImagesLocation+city.flagImage),
             ),
+            SizedBox(width: 10,),
             Text(locationCity),
             SizedBox(width: 40,)
           ],
