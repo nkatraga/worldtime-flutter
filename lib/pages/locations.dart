@@ -13,8 +13,8 @@ class LocationsPage extends StatefulWidget {
 class _LocationsPageState extends State<LocationsPage> {
   
   List<City> cities = [
-    City(location: 'Europe/London', flagPath: 'assets/images/uk.png'),
-    City(location: 'America/Chicago', flagPath: 'assets/images/usa.png')
+    City(location: 'Europe/London', flagImage: 'uk.png'),
+    City(location: 'America/Chicago', flagImage: 'usa.png')
   ];
 
   var location = 'Delhi';

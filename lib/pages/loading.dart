@@ -32,12 +32,16 @@ class _LoadingState extends State<Loading> {
   Widget build(BuildContext context) {
     Map cityUrlDataDefault = {'locationUrl': 'Europe/London'};
 
+    //On first load we haven't clicked on location yet, so no context is passed to loading route. Setting it to default to London
+
     if (ModalRoute.of(context)!.settings.arguments != null) {
       cityUrlData = ModalRoute.of(context)!.settings.arguments as Map;
     } else {
       cityUrlData = cityUrlDataDefault;
     }
-    setupWorldTime(cityUrlData);
+
+    setupWorldTime(cityUrlData); //this takes some time because it's async. App will show the below Scaffold while waiting for this function.
+
     return Scaffold(
       backgroundColor: Colors.blue[900],
       body: const Center(

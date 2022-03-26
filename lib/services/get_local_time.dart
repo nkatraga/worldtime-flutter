@@ -11,15 +11,13 @@ class LocalTime {
 
   Future<void> getTime() async {
     try {
+
       Response myJson =
       await get(Uri.parse('https://worldtimeapi.org/api/timezone/$url'));
       Map myJsonData = jsonDecode(myJson.body);
       String jsonTimeStr = myJsonData['datetime'];
-      String timeOffsetStr = myJsonData['utc_offset'];
-      int timeOffset = int.parse(timeOffsetStr.substring(1, 3));
 
-      DateTime datetimeThere =
-      DateTime.parse(jsonTimeStr).add(Duration(hours: timeOffset));
+      DateTime datetimeThere = DateTime.parse(jsonTimeStr.substring(0,26)); //DateTime.parse() automatically adds the offset, resulting in a DateTime object that is always set to UTC. So removing the offset and then parsing.
 
       isDaytime = ((datetimeThere.hour>5) && (datetimeThere.hour<20))? true : false;
       localTime = DateFormat.jm().format(datetimeThere);

@@ -5,6 +5,7 @@ class LocationCard extends StatelessWidget {
   //const LocationCard({Key? key}) : super(key: key);
 
   final City city;
+  final flagImagesLocation = 'assets/images/';
 
   LocationCard({required this.city});
 
@@ -19,7 +20,7 @@ class LocationCard extends StatelessWidget {
         child: Row(
           children: [
             CircleAvatar(
-              backgroundImage: AssetImage(city.flagPath),
+              backgroundImage: AssetImage(flagImagesLocation+city.flagImage),
             ),
             Text(locationCity),
             SizedBox(width: 40,)
