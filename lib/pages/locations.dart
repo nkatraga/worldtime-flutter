@@ -61,19 +61,6 @@ class _LocationsPageState extends State<LocationsPage> {
         constraints: BoxConstraints(maxHeight: 700),
         child: Column(
           children: [
-            TextField(
-              decoration: const InputDecoration(
-                contentPadding: EdgeInsets.all(10.0),
-                hintText: 'Search for city..'
-              ),
-              onChanged: (string){
-                setState(() {
-                  filteredCities = cities.where((c) =>
-                  (c.location.toLowerCase().contains(string.toLowerCase()))
-                  ).toList();
-                });
-              },
-            ),
             Expanded(
               child: ListView.builder(
                 shrinkWrap: true,
@@ -85,6 +72,19 @@ class _LocationsPageState extends State<LocationsPage> {
                 },
                     child: LocationCard(city: filteredCities[index],) );
               }),
+            ),
+            TextField(
+              decoration: const InputDecoration(
+                  contentPadding: EdgeInsets.all(10.0),
+                  hintText: 'Search for city..'
+              ),
+              onChanged: (string){
+                setState(() {
+                  filteredCities = cities.where((c) =>
+                  (c.location.toLowerCase().contains(string.toLowerCase()))
+                  ).toList();
+                });
+              },
             ),
           ],
         ),
