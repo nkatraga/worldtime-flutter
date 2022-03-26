@@ -62,24 +62,28 @@ class _LocationsPageState extends State<LocationsPage> {
         child: Column(
           children: [
             TextField(
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 contentPadding: EdgeInsets.all(10.0),
                 hintText: 'Search for city..'
               ),
               onChanged: (string){
-
+                setState(() {
+                  filteredCities = cities.where((c) =>
+                  (c.location.toLowerCase().contains(string.toLowerCase()))
+                  ).toList();
+                });
               },
             ),
             Expanded(
               child: ListView.builder(
                 shrinkWrap: true,
-                itemCount: cities.length,
+                itemCount: filteredCities.length,
                   itemBuilder: (context, index){
                 return GestureDetector(
                     onTap:() {
-                  Navigator.pushReplacementNamed(context, '/loading',arguments: {'location': cities[index]});
+                  Navigator.pushReplacementNamed(context, '/loading',arguments: {'location': filteredCities[index]});
                 },
-                    child: LocationCard(city: cities[index],) );
+                    child: LocationCard(city: filteredCities[index],) );
               }),
             ),
           ],

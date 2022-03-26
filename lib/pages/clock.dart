@@ -66,7 +66,6 @@ class _ClockPageState extends State<ClockPage> {
                                 scrollDirection: Axis.horizontal,
                                 child: Text(
                                   clockData['location'],
-                                  overflow: TextOverflow.clip,
                                   style: TextStyle(
                                     fontSize: 50,
                                     color: fontColor,
