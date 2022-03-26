@@ -31,12 +31,15 @@ class _LocationsPageState extends State<LocationsPage> {
     City(url: 'Asia/Jakarta', location: 'Jakarta', flagImage: 'indonesia.png'),
   ];
 
+  List<City> filteredCities = [City(url: 'Europe/London', location: 'London', flagImage: 'uk.png')];
+
   var location = 'Delhi';
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    filteredCities = cities;
     //print('initState function ran');
   }
 
@@ -54,15 +57,34 @@ class _LocationsPageState extends State<LocationsPage> {
             },
             child: LocationCard(city: e))).toList()
       )*/
-      body: ListView.builder(
-        itemCount: cities.length,
-          itemBuilder: (context, index){
-        return GestureDetector(
-            onTap:() {
-          Navigator.pushReplacementNamed(context, '/loading',arguments: {'location': cities[index]});
-        },
-            child: LocationCard(city: cities[index],) );
-      }),
+      body: Container(
+        constraints: BoxConstraints(maxHeight: 700),
+        child: Column(
+          children: [
+            TextField(
+              decoration: InputDecoration(
+                contentPadding: EdgeInsets.all(10.0),
+                hintText: 'Search for city..'
+              ),
+              onChanged: (string){
+
+              },
+            ),
+            Expanded(
+              child: ListView.builder(
+                shrinkWrap: true,
+                itemCount: cities.length,
+                  itemBuilder: (context, index){
+                return GestureDetector(
+                    onTap:() {
+                  Navigator.pushReplacementNamed(context, '/loading',arguments: {'location': cities[index]});
+                },
+                    child: LocationCard(city: cities[index],) );
+              }),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

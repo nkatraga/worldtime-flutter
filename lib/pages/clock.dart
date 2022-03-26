@@ -53,6 +53,7 @@ class _ClockPageState extends State<ClockPage> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
+                            SizedBox(width: 70,),
                             CircleAvatar(
                               backgroundImage: AssetImage(
                                   flagImagesLocation + clockData['flagImage']),
@@ -60,11 +61,17 @@ class _ClockPageState extends State<ClockPage> {
                             SizedBox(
                               width: 10,
                             ),
-                            Text(
-                              clockData['location'],
-                              style: TextStyle(
-                                fontSize: 50,
-                                color: fontColor,
+                            Expanded(
+                              child: SingleChildScrollView(
+                                scrollDirection: Axis.horizontal,
+                                child: Text(
+                                  clockData['location'],
+                                  overflow: TextOverflow.clip,
+                                  style: TextStyle(
+                                    fontSize: 50,
+                                    color: fontColor,
+                                  ),
+                                ),
                               ),
                             )
                           ],
@@ -74,12 +81,13 @@ class _ClockPageState extends State<ClockPage> {
                         ),
                         Text(
                           clockData['time'],
+                          textAlign: TextAlign.center,
                           style: TextStyle(fontSize: 70, color: fontColor),
                         )
                       ],
                     ),
                   ),
-                  flex: 2,
+                  flex: 3,
                 ),
                 Expanded(
                   child: Container(),
