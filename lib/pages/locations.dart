@@ -11,10 +11,18 @@ class LocationsPage extends StatefulWidget {
 }
 
 class _LocationsPageState extends State<LocationsPage> {
-  
+
+  //flags images are from https://www.countries-ofthe-world.com/flags-of-the-world.html - names shortened
   List<City> cities = [
     City(location: 'Europe/London', flagImage: 'uk.png'),
-    City(location: 'America/Chicago', flagImage: 'usa.png')
+    City(location: 'America/Chicago', flagImage: 'usa.png'),
+    City(location: 'Europe/Athens', flagImage: 'greece.png'),
+    City(location: 'Africa/Cairo', flagImage: 'egypt.png'),
+    City(location: 'Africa/Nairobi', flagImage: 'kenya.png'),
+    City(location: 'Asia/Kolkata', flagImage: 'india.png'),
+    City(location: 'America/New_York', flagImage: 'usa.png'),
+    City(location: 'Asia/Seoul', flagImage: 'south_korea.png'),
+    City(location: 'Asia/Jakarta', flagImage: 'indonesia.png'),
   ];
 
   var location = 'Delhi';
