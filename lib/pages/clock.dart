@@ -15,45 +15,61 @@ class _ClockPageState extends State<ClockPage> {
 
     clockData = ModalRoute.of(context)!.settings.arguments as Map;
 
+    String timeImage = (clockData['isDaytime'])? "day.png":"night.png";
+    Color? bgColor = (clockData['isDaytime'])? Colors.blue : Colors.indigo[900];
+
 
     return Scaffold(
+      backgroundColor: bgColor,
         body: SafeArea(
-      child: Column(
-        children: [
-          Expanded(
-            child: Container(
-              color: Colors.blue,
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: 150,
-                  ),
-                  IconButton(
-                      onPressed: () {
-                        Navigator.pushNamed(context, '/locations');
-                      },
-                      icon: Icon(Icons.house)),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [Icon(Icons.agriculture), Text("Seoul")],
-                  ),
-                  Text(
-                    clockData['time'],
-                    style: TextStyle(fontSize: 50),
-                  )
-                ],
-              ),
-            ),
-            flex: 1,
-          ),
-          Expanded(
-            child: Image(
-              image: NetworkImage("https://source.unsplash.com/user/c_v_r"),
-              fit: BoxFit.cover,
-            ),
-            flex: 1,
+      child: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/images/$timeImage'),
+            fit: BoxFit.cover,
           )
-        ],
+        ),
+        child: Column(
+          children: [
+            Expanded(
+              child: Container(
+                //color: Colors.blue[500],
+                child: Column(
+                  children: [
+                    const SizedBox(
+                      height: 150,
+                    ),
+                    IconButton(
+                        onPressed: () {
+                          Navigator.pushReplacementNamed(context, '/locations');
+                        },
+                        icon: Icon(Icons.house)),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.agriculture),
+                        Text(clockData['location'],style: const TextStyle(
+                          fontSize: 30,
+                          fontWeight: FontWeight.bold,
+                        ),)
+                      ],
+                    ),
+                    Text(
+                      clockData['time'],
+                      style: const TextStyle(fontSize: 50),
+                    )
+                  ],
+                ),
+              ),
+              flex: 1,
+            ),
+            Expanded(
+              child: Container(
+              ),
+              flex: 1,
+            )
+          ],
+        ),
       ),
     ));
   }

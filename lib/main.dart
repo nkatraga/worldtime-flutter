@@ -30,9 +30,9 @@ class MyApp extends StatelessWidget {
       ),
       //home: const ClockPage(title: 'Flutter Demo Home Page'),
       //home: ClockPage(),
-      initialRoute: '/',
+      initialRoute: '/loading',
       routes: {
-        '/': (context) => Loading(),
+        '/loading': (context) => Loading(),
         '/clock': (context) => ClockPage(),
         '/locations': (context) => LocationsPage()
 

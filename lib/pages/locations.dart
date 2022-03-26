@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:worldtime/pages/city.dart';
+import 'location_card.dart';
+import 'city.dart';
 
 class LocationsPage extends StatefulWidget {
   const LocationsPage({Key? key}) : super(key: key);
@@ -8,6 +11,11 @@ class LocationsPage extends StatefulWidget {
 }
 
 class _LocationsPageState extends State<LocationsPage> {
+  
+  List<City> cities = [
+    City(location: 'Europe/London', flagPath: 'assets/images/uk.png'),
+    City(location: 'America/Chicago', flagPath: 'assets/images/usa.png')
+  ];
 
   var location = 'Delhi';
 
@@ -15,39 +23,22 @@ class _LocationsPageState extends State<LocationsPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    print('initState function ran');
+    //print('initState function ran');
   }
 
   @override
   Widget build(BuildContext context) {
 
-
-
-
     return Scaffold(
       appBar: AppBar(
-        title: Text("Choose Location"),
+        title: const Text("Choose Location"),
       ),
-      body: GestureDetector(
-        onTap: (){
-          setState(() {
-            location = 'London';
-          });
-          //Navigator.pushNamed(context, '/clock');
-        },
-        child: Card(
-          //margin: EdgeInsets.fromLTRB(10, 10, 10, 10),
-          child: Row(
-            //mainAxisAlignment: ,
-            children: [
-              CircleAvatar(
-                backgroundImage: AssetImage("assets/images/uk.png"),
-              ),
-              Text("London"),
-              SizedBox(width: 40,)
-            ],
-          ),
-        ),
+      body: Column(
+        children: cities.map((e) => GestureDetector(
+          onTap:() {
+            Navigator.pushReplacementNamed(context, '/loading',arguments: {'locationUrl': e.location});
+            },
+            child: LocationCard(city: e))).toList()
       )
     );
   }

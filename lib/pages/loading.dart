@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:worldtime/services/get_local_time.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class Loading extends StatefulWidget {
   @override
@@ -7,30 +8,44 @@ class Loading extends StatefulWidget {
 }
 
 class _LoadingState extends State<Loading> {
-  var textShowing = "Loading..";
+  var loadingPageText = "Loading..";
+  Map cityUrlData = {};
 
-  void setupWorldTime() async {
-    LocalTime instance = LocalTime(url: 'Europe/London');
+  void setupWorldTime(Map cityUrlData) async {
+    LocalTime instance = LocalTime(url: cityUrlData['locationUrl']);
     await instance.getTime();
+    await Future.delayed(const Duration(seconds: 1));
     Navigator.pushReplacementNamed(context, '/clock', arguments: {
-      'time': instance.localTimeStr,
+      'time': instance.localTime,
+      'location': instance.location,
+      'isDaytime': instance.isDaytime,
     });
-    // setState(() {
-    //   textShowing = instance.localTimeStr;
-    // });
   }
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    setupWorldTime();
   }
 
   @override
   Widget build(BuildContext context) {
+    Map cityUrlDataDefault = {'locationUrl': 'Europe/London'};
+
+    if (ModalRoute.of(context)!.settings.arguments != null) {
+      cityUrlData = ModalRoute.of(context)!.settings.arguments as Map;
+    } else {
+      cityUrlData = cityUrlDataDefault;
+    }
+    setupWorldTime(cityUrlData);
     return Scaffold(
-      body: Center(child: Text(textShowing)),
+      backgroundColor: Colors.blue[900],
+      body: const Center(
+          child: SpinKitSpinningLines(
+        color: Colors.amber,
+        size: 150.0,
+        lineWidth: 7.0,
+      )),
     );
   }
 }
