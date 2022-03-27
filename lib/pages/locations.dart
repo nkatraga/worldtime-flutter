@@ -2,12 +2,33 @@ import 'package:flutter/material.dart';
 import 'package:worldtime/pages/city.dart';
 import 'location_card.dart';
 import 'city.dart';
+import 'dart:async';
 
 class LocationsPage extends StatefulWidget {
   const LocationsPage({Key? key}) : super(key: key);
 
   @override
   State<LocationsPage> createState() => _LocationsPageState();
+}
+
+//Debouncer function built from this video and some other articles https://www.youtube.com/watch?v=-EUsRa2G1zk
+//Don't quite understand how it works but it does.
+//The idea is it only does the search once you pause typing for "pauseDuration". Otherwise it will search for every letter - which is lot of load on the server
+
+class Debouncer {
+  final int pauseDuration;
+  //VoidCallback action = (){};
+  Timer _timer = Timer(Duration(milliseconds: 500),(){});
+
+  Debouncer({required this.pauseDuration});
+
+  run(VoidCallback action){
+    if (_timer != null){
+      _timer.cancel();
+    }
+    _timer = Timer(Duration(milliseconds: pauseDuration), action);
+  }
+
 }
 
 class _LocationsPageState extends State<LocationsPage> {
@@ -32,6 +53,8 @@ class _LocationsPageState extends State<LocationsPage> {
   ];
 
   List<City> filteredCities = [City(url: 'Europe/London', location: 'London', flagImage: 'uk.png')];
+
+  final _debouncer = Debouncer(pauseDuration: 500);
 
   var location = 'Delhi';
 
@@ -79,11 +102,14 @@ class _LocationsPageState extends State<LocationsPage> {
                   hintText: 'Search for city..'
               ),
               onChanged: (string){
-                setState(() {
-                  filteredCities = cities.where((c) =>
-                  (c.location.toLowerCase().contains(string.toLowerCase()))
-                  ).toList();
+                _debouncer.run((){
+                  setState(() {
+                    filteredCities = cities.where((c) =>
+                    (c.location.toLowerCase().contains(string.toLowerCase()))
+                    ).toList();
+                  });
                 });
+
               },
             ),
           ],
