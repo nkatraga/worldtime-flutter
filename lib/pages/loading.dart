@@ -15,7 +15,7 @@ class _LoadingState extends State<Loading> {
   void setupWorldTime(Map cityUrlData) async {
     LocalTime instance = LocalTime(city: cityData['location']);
     await instance.getTime();
-    await Future.delayed(const Duration(seconds: 1));
+    await Future.delayed(const Duration(milliseconds: 1000));
     Navigator.pushReplacementNamed(context, '/clock', arguments: {
       'time': instance.localTime,
       'location': instance.location,

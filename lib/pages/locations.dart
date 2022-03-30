@@ -84,18 +84,6 @@ class _LocationsPageState extends State<LocationsPage> {
         constraints: BoxConstraints(maxHeight: 700),
         child: Column(
           children: [
-            Expanded(
-              child: ListView.builder(
-                shrinkWrap: true,
-                itemCount: filteredCities.length,
-                  itemBuilder: (context, index){
-                return GestureDetector(
-                    onTap:() {
-                  Navigator.pushReplacementNamed(context, '/loading',arguments: {'location': filteredCities[index]});
-                },
-                    child: LocationCard(city: filteredCities[index],) );
-              }),
-            ),
             TextField(
               decoration: const InputDecoration(
                   contentPadding: EdgeInsets.all(10.0),
@@ -112,6 +100,19 @@ class _LocationsPageState extends State<LocationsPage> {
 
               },
             ),
+            Expanded(
+              child: ListView.builder(
+                shrinkWrap: true,
+                itemCount: filteredCities.length,
+                  itemBuilder: (context, index){
+                return GestureDetector(
+                    onTap:() {
+                  Navigator.pushReplacementNamed(context, '/loading',arguments: {'location': filteredCities[index]});
+                },
+                    child: LocationCard(city: filteredCities[index],) );
+              }),
+            ),
+
           ],
         ),
       ),
